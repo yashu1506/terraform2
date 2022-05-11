@@ -8,13 +8,21 @@ pipeline {
                  }
                  stage('terraform-init') {
                   steps {
-                      sh  "terraform init "
+                      sh 'terraform init'
                    }
                  }
                 stage('terraform-Plan') {
                   steps {
                       sh  "terraform plan"
                    }
-                 }             
+                 } 
+                stage('terraform-apply') {
+                  steps {
+                      input 'Do you approve apply?'
+                      sh  "terraform apply -auto-approve"
+                   }
+           } 
+           
       }
 }
+
